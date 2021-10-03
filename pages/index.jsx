@@ -33,8 +33,8 @@ export default function BlogIndex({ posts, authors }) {
 }
 
 export async function getStaticProps() {
-  const posts = await getAllFilesFrontMatter("episodes");
-  const authors = await getAllFilesFrontMatter("team");
+  const posts = await getContent("episodes");
+  // const authors = await getAllFilesFrontMatter("team");
 
   return {
     props: { posts, authors }, // will be passed to the page component as props

@@ -6,7 +6,7 @@ import { MDXRemote } from "next-mdx-remote";
 import components from "../../features/mdx-components";
 import ArticleLayout from "../../layouts/article-layout";
 import ArticleSchema from "../../features/content-schemas/article-schema";
-import { getFiles, getFileBySlug } from "../../utils";
+import { getFiles, getContentBySlug } from "../../utils";
 import YoutubeEmbed from "../../features/youtube-embed";
 import {StickyShareButtons} from 'sharethis-reactjs';
 
@@ -156,6 +156,6 @@ export async function getStaticPaths() {
   };
 }
 export async function getStaticProps({ params }) {
-  const post = await getFileBySlug("articles", params.slug);
+  const post = await getContentBySlug("articles", params.slug);
   return { props: { ...post } };
 }

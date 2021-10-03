@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import ContentGrid from "../../features/content-grid/index";
 import ArticleLayout from "../../layouts/article-layout";
 import { setAuthors } from "../../redux/slices/authors";
-import { getAllContent, getAllFilesFrontMatter } from "../../utils";
+import { getContent, getAllFilesFrontMatter } from "../../utils";
 
 export default function BlogIndex({ posts, authors }) {
   const dispatch = useDispatch();
@@ -31,8 +31,7 @@ export default function BlogIndex({ posts, authors }) {
 }
 
 export async function getStaticProps({ params }) {
-  const allPosts = await getAllContent();
-  const posts = allPosts.filter((item) => (item.tags.includes(params.tag)));
+  const posts = await getContentByTag(params.tag);
   const authors = await getAllFilesFrontMatter("team");
 
   return {
@@ -41,7 +40,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const items = await getAllContent();
+  const items = await getContent();
   const arr = items.map((p) => (p.tags));
   const allTags = [].concat(...arr);
   const tags = [...new Set(allTags)]
